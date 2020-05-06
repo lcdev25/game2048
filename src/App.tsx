@@ -22,10 +22,19 @@ function App() {
             </div>
             <Game></Game>
             <div className="signature">
-                Developer:
-                <a target="_BLANK" href="https://github.com/lcdev25">
-                    Lavneesh - lcdev25
-                </a>
+                <span>
+                    Developer:
+                    <a target="_BLANK" href="https://github.com/lcdev25">
+                        Lavneesh - lcdev25
+                    </a>
+                    {'    '}
+                    <a
+                        target="_BLANK"
+                        href="https://github.com/lcdev25/game2048"
+                    >
+                        Contribute
+                    </a>
+                </span>
             </div>
         </Provider>
     );
