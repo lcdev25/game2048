@@ -55,8 +55,6 @@ const Board = (props: Props) => {
     }
 
     function touchEnd(e: any) {
-        console.log(touchStartX, touchStartY);
-        console.log(touchEndX, touchEndY);
         const horDis = Math.abs(touchEndX - touchStartX);
         const verDis = Math.abs(touchEndY - touchStartY);
         if (horDis > 50 || verDis > 50) {
@@ -80,7 +78,6 @@ const Board = (props: Props) => {
                 }
             }
         }
-        console.log(horDis, verDis);
     }
 
     function checkKey(e: any) {
