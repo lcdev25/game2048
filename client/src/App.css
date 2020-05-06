@@ -4,6 +4,10 @@
 
 body {
   background-color: #363062;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
 }
 
 #root {
@@ -16,19 +20,18 @@ body {
 
 .inspiration {
   display: flex;
-  width: 100%;
   justify-content: flex-end;
 }
 
 .inspiration a{
   margin: 5px;
+  font-size: .8rem;
   display: inline-block;
   color: white;
 }
 
 .signature {
   display: flex;
-  max-width: 100%;
   justify-content: flex-end;
   align-items: center;
   color: #f4e04d;
@@ -44,9 +47,27 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  font-size: 6rem;
+  flex-direction: row;
+}
+
+.game-header .rules {
+  color: #f4e04d;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.game-header .title {
+  font-size: 4rem;
   color: #bb3b0e
+}
+
+.game-sub-header {
+  color: #d8c593;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
 }
 
 .game-container {
@@ -113,6 +134,19 @@ body {
   height: 5rem;
   font-size: 2rem;
   color: rgba(171,153,46,0.99)
+}
+
+.board-cell-winner {
+  border-color: goldenrod;
+  animation-name: winner-cell;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes winner-cell {
+  50% {background-color: rgba(171,18,97,0.95)}
+  100% {background-color: rgba(33,129,13,0.95)}
 }
 
 .board-cell-null {

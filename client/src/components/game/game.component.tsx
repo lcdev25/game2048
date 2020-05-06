@@ -37,7 +37,14 @@ const Game = (props: Props) => {
 
     return (
         <Fragment>
-            <div className="game-header">2048</div>
+            <div className="game-header">
+                <div className="rules">Join tiles to get to tile</div>
+                <div className="title">2048</div>
+            </div>
+            <div className="game-sub-header">
+                Use arrow keys or swipe to move the tiles. When two tiles with
+                the same face touch, they collapse into one.
+            </div>
             <div className="game-container">
                 <div className="game-actions-container">
                     <button
@@ -48,7 +55,7 @@ const Game = (props: Props) => {
                         NEW GAME
                     </button>
                 </div>
-                <Board></Board>
+                <Board />
                 <div className="game-actions-container">
                     <button
                         type="button"

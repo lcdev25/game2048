@@ -26,8 +26,17 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux;
 
-const getCellLabel = (cell: number | null) => {
-    return cell || '';
+const getCellClass = (cell: number | null) => {
+    let cellClass;
+    if (cell) {
+        cellClass = `board-cell-${cell}`;
+        if (cell === 2048) {
+            cellClass = `${cellClass} board-cell-winner`;
+        }
+    } else {
+        cellClass = `board-cell-null`;
+    }
+    return cellClass;
 };
 
 const Board = (props: Props) => {
@@ -131,116 +140,84 @@ const Board = (props: Props) => {
                 onTouchEnd={(e) => touchEnd(e)}
             >
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[0][0].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[0][0].value)}`}
                 >
-                    {getCellLabel(cells[0][0].value)}
+                    {cells[0][0].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[0][1].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[0][1].value)}`}
                 >
-                    {getCellLabel(cells[0][1].value)}
+                    {cells[0][1].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[0][2].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[0][2].value)}`}
                 >
-                    {getCellLabel(cells[0][2].value)}
+                    {cells[0][2].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[0][3].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[0][3].value)}`}
                 >
-                    {getCellLabel(cells[0][3].value)}
+                    {cells[0][3].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[1][0].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[1][0].value)}`}
                 >
-                    {getCellLabel(cells[1][0].value)}
+                    {cells[1][0].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[1][1].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[1][1].value)}`}
                 >
-                    {getCellLabel(cells[1][1].value)}
+                    {cells[1][1].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[1][2].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[1][2].value)}`}
                 >
-                    {getCellLabel(cells[1][2].value)}
+                    {cells[1][2].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[1][3].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[1][3].value)}`}
                 >
-                    {getCellLabel(cells[1][3].value)}
+                    {cells[1][3].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[2][0].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[2][0].value)}`}
                 >
-                    {getCellLabel(cells[2][0].value)}
+                    {cells[2][0].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[2][1].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[2][1].value)}`}
                 >
-                    {getCellLabel(cells[2][1].value)}
+                    {cells[2][1].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[2][2].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[2][2].value)}`}
                 >
-                    {getCellLabel(cells[2][2].value)}
+                    {cells[2][2].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[2][3].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[2][3].value)}`}
                 >
-                    {getCellLabel(cells[2][3].value)}
+                    {cells[2][3].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[3][0].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[3][0].value)}`}
                 >
-                    {getCellLabel(cells[3][0].value)}
+                    {cells[3][0].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[3][1].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[3][1].value)}`}
                 >
-                    {getCellLabel(cells[3][1].value)}
+                    {cells[3][1].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[3][2].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[3][2].value)}`}
                 >
-                    {getCellLabel(cells[3][2].value)}
+                    {cells[3][2].value || ''}
                 </div>
                 <div
-                    className={`board-cell board-cell-${
-                        getCellLabel(cells[3][3].value) || `null`
-                    }`}
+                    className={`board-cell ${getCellClass(cells[3][3].value)}`}
                 >
-                    {getCellLabel(cells[3][3].value)}
+                    {cells[3][3].value || ''}
                 </div>
             </div>
         </Fragment>
