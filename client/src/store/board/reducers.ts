@@ -308,9 +308,9 @@ const collapseBottom = (cells: Cell[][]) => {
 
 const cloneCells = (cells: Cell[][]) => {
     const boardSize = cells.length;
-    const newBoard = [];
+    const newBoard: Cell[][] = [];
     for (let row = 0; row < boardSize; row++) {
-        const newRow = [];
+        const newRow: Cell[] = [];
         for (let col = 0; col < boardSize; col++) {
             newRow.push(new Cell(cells[row][col].value));
         }
