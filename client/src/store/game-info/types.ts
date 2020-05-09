@@ -12,6 +12,7 @@ interface StartGameDone {
         globalGamesPlayed: string;
         globalPlayersPlaying: string;
         gameId: string;
+        isContinuedGame: boolean;
     };
 }
 
@@ -58,4 +59,5 @@ export interface GameInfoState {
     hasVisitedContribute: boolean;
     hasVisitedOriginal: boolean;
     gameId: string;
+    isContinuedGame: boolean;
 }

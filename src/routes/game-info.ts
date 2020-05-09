@@ -8,6 +8,19 @@ import { GameInfo } from '../models/GameInfo';
 
 const router = express.Router();
 
+router.get('/global-stats', async (req, res) => {
+    console.log('Getting global stats');
+    try {
+        const globalData = await getGlobalStats();
+        res.status(200).json({
+            ...globalData,
+        });
+    } catch (e) {
+        console.log(`Error in getting global stats: ${e}`);
+        res.status(500).json({ errors: [{ msg: 'Server error' }] });
+    }
+});
+
 router.post('/', async (req, res) => {
     console.log('Starting new game');
     try {

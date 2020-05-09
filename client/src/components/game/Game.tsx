@@ -7,6 +7,7 @@ import { RootState } from '../../store/types';
 
 const mapState = (state: RootState) => ({
     boardState: state.boardState,
+    gameInfoState: state.gameInfoState,
 });
 
 const mapDispatch = {
@@ -24,7 +25,9 @@ type Props = propsFromRedux;
 
 const Game = (props: Props) => {
     useEffect(() => {
-        props.initialise();
+        if (!props.gameInfoState.isContinuedGame) {
+            props.initialise();
+        }
     }, []);
 
     const gameOver = props.boardState.present.gameOver;

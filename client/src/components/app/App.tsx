@@ -8,14 +8,12 @@ import {
     visitOriginal,
     visitContribute,
     visitProfile,
-    setLocalTopScore,
 } from '../../store/app/actions';
 
 const mapState = (state: RootState) => state;
 
 const mapDispatch = {
     appLoaded,
-    setLocalTopScore: (topScore) => setLocalTopScore(topScore),
     visitOriginal,
     visitProfile,
     visitContribute,
@@ -27,12 +25,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux;
 
-const localTopScore = localStorage.getItem('localTopScore') || 0;
-
 const App = (props: Props) => {
     useEffect(() => {
         props.appLoaded();
-        props.setLocalTopScore(Number(localTopScore));
     }, []);
 
     return (

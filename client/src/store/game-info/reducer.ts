@@ -20,6 +20,7 @@ const initialState: GameInfoState = {
     timesRedo: 0,
     timesUndo: 0,
     gameId: '',
+    isContinuedGame: false,
 };
 
 export const gameInfoReducer = (
@@ -43,6 +44,7 @@ export const gameInfoReducer = (
                 globalGamesPlayed: action.payload.globalGamesPlayed || '',
                 globalPlayersPlaying: action.payload.globalPlayersPlaying || '',
                 gameId: action.payload.gameId,
+                isContinuedGame: action.payload.isContinuedGame,
             };
         case UNDO_MOVE_DONE:
             return {

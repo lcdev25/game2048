@@ -16,6 +16,7 @@ import {
     VISIT_PROFILE_DONE,
 } from './types';
 import { RootState } from '../types';
+import { getItemFromLocalStorage } from '../../utils/local-storage';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
@@ -23,11 +24,12 @@ const gameInfoMiddleware = (store) => {
     return (next) => async (action) => {
         next(action);
         let dispatch = store.dispatch;
-        let getState = store.getState();
+        let getState: RootState = store.getState();
         const { type } = action;
+
         switch (type) {
             case APP_LOADED:
-                await startGame(dispatch);
+                await startGame(dispatch, getState);
                 break;
             case RESET:
                 await newGame(dispatch, getState);
@@ -51,34 +53,41 @@ const gameInfoMiddleware = (store) => {
     };
 };
 
-const startGame = async (dispatch) => {
+const startGame = async (dispatch, getState: RootState) => {
     let globalGamesPlayed, globalPlayersPlaying;
-    let gameId = localStorage.getItem('gameId') || '';
-    try {
-        const res = await axios.post('/api/game-info', {
-            data: { gameId: gameId },
-        });
+    let gameId = getState?.gameInfoState?.gameId;
+    let isContinuedGame = false;
+    if (gameId) {
+        const res = await axios.get('/api/game-info/global-stats');
         globalGamesPlayed = res?.data?.globalGamesPlayed;
         globalPlayersPlaying = res?.data?.globalPlayersPlaying;
-        gameId = res?.data?.gameId;
-        console.log(`Setting game id: ${gameId}`);
-        localStorage.setItem('gameId', gameId);
-    } catch (e) {
-        console.error(
-            `Error while updating START_GAME event to server. ${JSON.stringify(
-                e
-            )}`
-        );
-    } finally {
-        dispatch({
-            type: START_GAME_DONE,
-            payload: {
-                globalGamesPlayed: globalGamesPlayed,
-                globalPlayersPlaying: globalPlayersPlaying,
-                gameId: gameId,
-            },
-        });
+        isContinuedGame = true;
+    } else {
+        try {
+            gameId = getItemFromLocalStorage('gameId') || ''; //This is for backward compatibility with older version of the app
+            const res = await axios.post('/api/game-info', {
+                data: { gameId: gameId },
+            });
+            globalGamesPlayed = res?.data?.globalGamesPlayed;
+            globalPlayersPlaying = res?.data?.globalPlayersPlaying;
+            gameId = res?.data?.gameId;
+        } catch (e) {
+            console.error(
+                `Error while updating START_GAME event to server. ${JSON.stringify(
+                    e
+                )}`
+            );
+        }
     }
+    dispatch({
+        type: START_GAME_DONE,
+        payload: {
+            globalGamesPlayed: globalGamesPlayed,
+            globalPlayersPlaying: globalPlayersPlaying,
+            gameId: gameId,
+            isContinuedGame: isContinuedGame,
+        },
+    });
 };
 
 const newGame = async (dispatch, getState: RootState) => {
