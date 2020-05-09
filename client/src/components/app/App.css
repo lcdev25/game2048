@@ -232,7 +232,7 @@ body {
 }
 
 .board-cell-64 {
-  background-color: #d8c593;
+  background-color: rgba(114,152,29,0.95);
   color: #faf4ff;
 }
 
