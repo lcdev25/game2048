@@ -1,11 +1,11 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { undo, redo, reset } from '../../store/undoable/undoable.actions';
+import { undo, redo, reset } from '../../store/undoable/actions';
 import { initialise } from '../../store/board/actions';
-import Board from '../board/board.component';
-import { AppState } from '../../store/app.types';
+import Board from '../board/Board';
+import { RootState } from '../../store/types';
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState) => ({
     boardState: state.boardState,
 });
 
@@ -35,6 +35,14 @@ const Game = (props: Props) => {
         props.initialise();
     };
 
+    const undoMove = () => {
+        props.undo();
+    };
+
+    const redoMove = () => {
+        props.redo();
+    };
+
     return (
         <Fragment>
             <div className="game-header">
@@ -47,6 +55,12 @@ const Game = (props: Props) => {
             </div>
             <div className="game-container">
                 <div className="game-actions-container">
+                    <div className="game-score-container">
+                        <span className="game-score-label">Score</span>
+                        <div className="game-score-value">
+                            {props.boardState.present.score}
+                        </div>
+                    </div>
                     <button
                         type="button"
                         className="game-action-button"
@@ -60,14 +74,14 @@ const Game = (props: Props) => {
                     <button
                         type="button"
                         className="game-action-button"
-                        onClick={props.undo}
+                        onClick={undoMove}
                     >
                         UNDO
                     </button>
                     <button
                         type="button"
                         className="game-action-button"
-                        onClick={props.redo}
+                        onClick={redoMove}
                     >
                         REDO
                     </button>

@@ -1,9 +1,17 @@
+:root {
+  --primary-color: #363062;
+  --reverse-color: #f4e04d;
+  --alternate-reverse-color: #ff5151;
+  --board-background-color: #00bcd4;
+  --neutral-color: #faf4ff;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #363062;
+  background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-content: center;
@@ -13,34 +21,57 @@ body {
 #root {
   display: flex;
   justify-content: center;
-  align-content: space-between;
+  align-items: center;
   flex-direction: column;
 
+}
+
+.global-stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(2, auto);
+  grid-gap: .4rem;
+  padding: .4rem;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+}
+
+.global-stats-label {
+  color: var(--alternate-reverse-color);
+  font-size: .8rem;
+}
+
+.global-stats-value {
+  font-size: .8rem;
+  font-weight: bold;
+  color: var(--neutral-color);
 }
 
 .inspiration {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 
 .inspiration a{
   margin: 5px;
   font-size: .8rem;
   display: inline-block;
-  color: white;
+  color: var(--neutral-color);
 }
 
 .signature {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  color: #f4e04d;
+  color: var(--reverse-color);
+  width: 100%
 }
 
 .signature a{
   margin: 5px;
   display: inline-block;
-  color: white;
+  color: var(--neutral-color);
 }
 
 .game-header {
@@ -51,14 +82,14 @@ body {
 }
 
 .game-header .rules {
-  color: #f4e04d;
+  color: var(--reverse-color);
   font-weight: bold;
   font-size: 1.3rem;
 }
 
 .game-header .title {
   font-size: 4rem;
-  color: #bb3b0e
+  color: var(--alternate-reverse-color);
 }
 
 .game-sub-header {
@@ -81,7 +112,31 @@ body {
   align-items: center;
   flex-direction: row;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+}
+
+.game-score-container {
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-score-container .game-score-label{
+  padding: 10px;
+  color: var(--neutral-color);
+}
+
+.game-score-container .game-score-value{
+  width: 5rem;
+  height: 2rem;
+  border: 2px solid var(--board-background-color);
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;font-size: 1rem;
+  color: var(--alternate-reverse-color);
 }
 
 .game-status-container {
@@ -104,9 +159,9 @@ body {
   align-items: center;
   font-weight: bold;
   font-size: 30px;
-  margin: 40px;
-  background-color: #f4e04d;
-  color: #827397;
+  margin: 20px;
+  background-color: var(--reverse-color);
+  color: var(--primary-color);
 }
 
 .board-container {
@@ -121,7 +176,7 @@ body {
   padding: .5rem;
   justify-content: space-evenly;
   align-content: space-evenly;
-  background-color: #00bcd4;
+  background-color: var(--board-background-color);
 }
 
 .board-cell {
@@ -133,7 +188,6 @@ body {
   width: 5rem;
   height: 5rem;
   font-size: 1.8rem;
-  color: rgba(171,153,46,0.99)
 }
 
 .board-cell-winner {
@@ -150,7 +204,7 @@ body {
 }
 
 .board-cell-null {
-  background-color: #faf4ff;
+  background-color: var(--neutral-color);
 }
 
 .board-cell-2 {

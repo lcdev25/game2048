@@ -1,15 +1,25 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import * as express from 'express';
 import path from 'path';
+import connectDB from './config/db';
+import GameRouter from './routes/game-info';
+import * as expressIp from 'express-ip';
+
+connectDB()
+    .then()
+    .catch((e) => console.log(`Mongo connection error: ${JSON.stringify(e)}`));
 
 const app = express();
 
-let counter = 0;
+app.use(expressIp().getIpInfoMiddleware);
 app.use(express.json());
+
+app.use('/api/game-info', GameRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
-        console.log(`Starting game: ${counter++}`);
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }

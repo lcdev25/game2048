@@ -1,4 +1,4 @@
-import { REDO, RESET, UNDO, UndoableActionTypes } from './undoable.types';
+import { REDO, RESET, UNDO, UndoableActionTypes } from './types';
 
 export function undo(): UndoableActionTypes {
     return {

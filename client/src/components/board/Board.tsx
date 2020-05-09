@@ -1,5 +1,4 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { AppState } from '../../store/app.types';
 import React, { Fragment, useEffect } from 'react';
 
 import {
@@ -8,8 +7,9 @@ import {
     moveRight,
     moveTop,
 } from '../../store/board/actions';
+import { RootState } from '../../store/types';
 
-const mapState = (state: AppState) => ({
+const mapState = (state: RootState) => ({
     boardState: state.boardState,
 });
 

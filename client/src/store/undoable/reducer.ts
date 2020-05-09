@@ -1,10 +1,4 @@
-import {
-    REDO,
-    RESET,
-    UNDO,
-    UndoableActionTypes,
-    UndoableState,
-} from './undoable.types';
+import { REDO, RESET, UNDO, UndoableActionTypes, UndoableState } from './types';
 
 const undoableReducer = function <S, A>(
     reducer: (s: S | undefined, a: A | any) => S

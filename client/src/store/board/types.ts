@@ -44,4 +44,5 @@ export interface BoardState {
     gameOver: boolean;
     gameWon: boolean;
     boardSize: 4;
+    score: number;
 }
