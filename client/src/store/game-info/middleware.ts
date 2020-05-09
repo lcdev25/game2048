@@ -16,7 +16,10 @@ import {
     VISIT_PROFILE_DONE,
 } from './types';
 import { RootState } from '../types';
-import { getItemFromLocalStorage } from '../../utils/local-storage';
+import {
+    deleteItemFromLocalStorage,
+    getItemFromLocalStorage,
+} from '../../utils/local-storage';
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
@@ -65,6 +68,9 @@ const startGame = async (dispatch, getState: RootState) => {
     } else {
         try {
             gameId = getItemFromLocalStorage('gameId') || ''; //This is for backward compatibility with older version of the app
+            if (gameId) {
+                deleteItemFromLocalStorage('gameId');
+            }
             const res = await axios.post('/api/game-info', {
                 data: { gameId: gameId },
             });

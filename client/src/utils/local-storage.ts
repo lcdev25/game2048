@@ -18,3 +18,13 @@ export const getItemFromLocalStorage = (item: string): string | null => {
     }
     return null;
 };
+
+export const deleteItemFromLocalStorage = (item: string) => {
+    try {
+        localStorage.removeItem(item);
+    } catch (e) {
+        console.error(
+            'Error while removing the local storage. ' + JSON.stringify(e)
+        );
+    }
+};

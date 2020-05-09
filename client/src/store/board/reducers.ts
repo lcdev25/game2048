@@ -30,22 +30,22 @@ function boardReducer(
     const cells = cloneCells(state.cells);
     switch (action.type) {
         case MOVE_LEFT:
-            return moveLeft({
+            return moveLeft(state, {
                 ...state,
                 cells: cloneCells(state.cells),
             });
         case MOVE_RIGHT:
-            return moveRight({
+            return moveRight(state, {
                 ...state,
                 cells: cloneCells(state.cells),
             });
         case MOVE_TOP:
-            return moveTop({
+            return moveTop(state, {
                 ...state,
                 cells: cloneCells(state.cells),
             });
         case MOVE_BOTTOM:
-            return moveBottom({
+            return moveBottom(state, {
                 ...state,
                 cells: cloneCells(state.cells),
             });
@@ -60,6 +60,70 @@ function boardReducer(
             return state;
     }
 }
+
+const moveLeft = (oldState: BoardState, state: BoardState) => {
+    const cells: Cell[][] = state.cells;
+    shiftLeft(cells);
+    state.score = state.score + collapseLeft(cells);
+    shiftLeft(cells);
+    if (areCellsIdentical(oldState.cells, state.cells)) {
+        return oldState;
+    }
+    calculateResult(state);
+    if (!state.gameOver) {
+        insertRandom(cells);
+        calculateResult(state);
+    }
+    return state;
+};
+
+const moveRight = (oldState: BoardState, state: BoardState) => {
+    const cells: Cell[][] = state.cells;
+    shiftRight(cells);
+    state.score = state.score + collapseRight(cells);
+    shiftRight(cells);
+    if (areCellsIdentical(oldState.cells, state.cells)) {
+        return oldState;
+    }
+    calculateResult(state);
+    if (!state.gameOver) {
+        insertRandom(cells);
+        calculateResult(state);
+    }
+    return state;
+};
+
+const moveTop = (oldState: BoardState, state: BoardState) => {
+    const cells: Cell[][] = state.cells;
+    shiftTop(cells);
+    state.score = state.score + collapseTop(cells);
+    shiftTop(cells);
+    if (areCellsIdentical(oldState.cells, state.cells)) {
+        return oldState;
+    }
+    calculateResult(state);
+    if (!state.gameOver) {
+        insertRandom(cells);
+        calculateResult(state);
+    }
+    return state;
+};
+
+const moveBottom = (oldState: BoardState, state: BoardState) => {
+    const cells: Cell[][] = state.cells;
+    shiftBottom(cells);
+    state.score = state.score + collapseBottom(cells);
+    shiftBottom(cells);
+    if (areCellsIdentical(oldState.cells, state.cells)) {
+        return oldState;
+    }
+    calculateResult(state);
+    if (!state.gameOver) {
+        insertRandom(cells);
+        calculateResult(state);
+    }
+    return state;
+};
 
 const calculateResult = (state: BoardState): BoardState => {
     const cells = state.cells;
@@ -87,58 +151,6 @@ const calculateResult = (state: BoardState): BoardState => {
             state.gameOver = true;
             state.gameWon = false;
         }
-    }
-    return state;
-};
-
-const moveLeft = (state: BoardState) => {
-    const cells: Cell[][] = state.cells;
-    shiftLeft(cells);
-    state.score = state.score + collapseLeft(cells);
-    shiftLeft(cells);
-    calculateResult(state);
-    if (!state.gameOver) {
-        insertRandom(cells);
-        calculateResult(state);
-    }
-    return state;
-};
-
-const moveRight = (state: BoardState) => {
-    const cells: Cell[][] = state.cells;
-    shiftRight(cells);
-    state.score = state.score + collapseRight(cells);
-    shiftRight(cells);
-    calculateResult(state);
-    if (!state.gameOver) {
-        insertRandom(cells);
-        calculateResult(state);
-    }
-    return state;
-};
-
-const moveTop = (state: BoardState) => {
-    const cells: Cell[][] = state.cells;
-    shiftTop(cells);
-    state.score = state.score + collapseTop(cells);
-    shiftTop(cells);
-    calculateResult(state);
-    if (!state.gameOver) {
-        insertRandom(cells);
-        calculateResult(state);
-    }
-    return state;
-};
-
-const moveBottom = (state: BoardState) => {
-    const cells: Cell[][] = state.cells;
-    shiftBottom(cells);
-    state.score = state.score + collapseBottom(cells);
-    shiftBottom(cells);
-    calculateResult(state);
-    if (!state.gameOver) {
-        insertRandom(cells);
-        calculateResult(state);
     }
     return state;
 };
@@ -324,6 +336,19 @@ const cloneCells = (cells: Cell[][]) => {
         newBoard.push(newRow);
     }
     return newBoard;
+};
+
+const areCellsIdentical = (cells1: Cell[][], cells2: Cell[][]) => {
+    if (cells1.length !== cells2.length) return false;
+    const boardSize = cells1.length;
+    for (let row = 0; row < boardSize; row++) {
+        for (let col = 0; col < boardSize; col++) {
+            if (cells1[row][col].value !== cells2[row][col].value) {
+                return false;
+            }
+        }
+    }
+    return true;
 };
 
 export default undoableReducer<BoardState, BoardActionTypes>(boardReducer);
